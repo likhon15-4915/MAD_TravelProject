@@ -99,68 +99,86 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Hotel Page with 11 hotels and Book Now button
-class HotelPage extends StatelessWidget {
+class HotelPage extends StatefulWidget {
+  @override
+  _HotelPageState createState() => _HotelPageState();
+}
+
+class _HotelPageState extends State<HotelPage> {
+  // TextEditingController to capture search input
+  TextEditingController _searchController = TextEditingController();
+
+  // List of hotels
   final List<Map<String, dynamic>> hotels = [
-    // Original 6 Hotels
     {
       "name": "Pan Pacific Sonargaon",
       "location": "Dhaka",
-      "price": "৳18,000 (2 nights)"
+      "price": "৳18,000 (2 nights)",
     },
     {
       "name": "The Peninsula Chittagong",
       "location": "Chittagong",
-      "price": "৳14,000 (2 nights)"
+      "price": "৳14,000 (2 nights)",
     },
     {
       "name": "Seagull Hotel",
       "location": "Cox's Bazar",
-      "price": "৳20,000 (3 nights)"
+      "price": "৳20,000 (3 nights)",
     },
     {
       "name": "Hotel Agrabad",
       "location": "Chittagong",
-      "price": "৳13,000 (2 nights)"
+      "price": "৳13,000 (2 nights)",
     },
     {
       "name": "Royal Tulip Sea Pearl Beach Resort",
       "location": "Cox's Bazar",
-      "price": "৳25,000 (3 nights)"
+      "price": "৳25,000 (3 nights)",
     },
     {
       "name": "Long Beach Hotel",
       "location": "Cox's Bazar",
-      "price": "৳17,500 (3 nights)"
-    },
-
-    // New 5 Hotels
-    {
-      "name": "Hotel Tanguar Haor",
-      "location": "Sylhet",
-      "price": "৳15,000 (2 nights)"
+      "price": "৳17,500 (3 nights)",
     },
     {
       "name": "Rangamati Hill Resort",
       "location": "Rangamati",
-      "price": "৳12,500 (2 nights)"
+      "price": "৳12,500 (2 nights)",
     },
     {
-      "name": "Srimangal Tea Resort",
-      "location": "Srimangal",
-      "price": "৳16,500 (3 nights)"
-    },
-    {
-      "name": "Sundarbans Hotel & Resort",
-      "location": "Sundarbans",
-      "price": "৳22,000 (3 nights)"
+      "name": "Sajek Valley Resort",
+      "location": "Sajek Valley",
+      "price": "৳18,000 (3 nights)",
     },
     {
       "name": "Boga Lake Resort",
       "location": "Bandarbans",
-      "price": "৳18,500 (2 nights)"
+      "price": "৳18,500 (2 nights)",
+    },
+    {
+      "name": "Hotel Tanguar Haor",
+      "location": "Sylhet",
+      "price": "৳15,000 (2 nights)",
+    },
+    {
+      "name": "Srimangal Tea Resort",
+      "location": "Srimangal",
+      "price": "৳16,500 (3 nights)",
     },
   ];
+
+  // Function to filter hotels based on search query
+  List<Map<String, dynamic>> _filterHotels(String query) {
+    return hotels.where((hotel) {
+      String name = hotel["name"].toLowerCase();
+      String location = hotel["location"].toLowerCase();
+      String price = hotel["price"].toLowerCase();
+
+      return name.contains(query.toLowerCase()) ||
+          location.contains(query.toLowerCase()) ||
+          price.contains(query.toLowerCase());
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,69 +186,182 @@ class HotelPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Hotel Booking"),
         backgroundColor: Colors.green,
+        actions: [
+          // Search icon
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: HotelSearchDelegate(hotels: hotels),
+              );
+            },
+          ),
+        ],
       ),
-      body: ListView.builder(
-        itemCount: hotels.length,
-        itemBuilder: (context, index) {
-          final hotel = hotels[index];
-          return Card(
-            margin: EdgeInsets.all(12),
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            // Search TextField
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                labelText: 'Search Hotels',
+                hintText: 'Enter hotel name, location, or price',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (query) {
+                setState(() {}); // Update search results when typing
+              },
             ),
-            child: Padding(
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    hotel["name"],
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+            SizedBox(height: 12),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _filterHotels(_searchController.text).length,
+                itemBuilder: (context, index) {
+                  final hotel = _filterHotels(_searchController.text)[index];
+                  return Card(
+                    margin: EdgeInsets.all(12),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    hotel["location"],
-                    style: TextStyle(color: Colors.grey[700]),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    "Reservation Cost: ${hotel["price"]}",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.green[800],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                "Booking initiated for ${hotel["name"]}"),
+                    child: Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Removed hotel image, just showing details
+                          SizedBox(height: 8),
+                          Text(
+                            hotel["name"],
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
                           ),
-                        );
-                      },
-                      child: Text("Book Now"),
+                          SizedBox(height: 4),
+                          Text(
+                            hotel["location"],
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            "Reservation Cost: ${hotel["price"]}",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.green[800],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "Booking initiated for ${hotel["name"]}"),
+                                  ),
+                                );
+                              },
+                              child: Text("Book Now"),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Hotel Search Delegate for advanced search experience
+class HotelSearchDelegate extends SearchDelegate {
+  final List<Map<String, dynamic>> hotels;
+
+  HotelSearchDelegate({required this.hotels});
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // Clear search button
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = ''; // Clear the search query
         },
       ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // Back button
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // Filter hotels based on query
+    final results = hotels.where((hotel) {
+      return hotel["name"].toLowerCase().contains(query.toLowerCase()) ||
+          hotel["location"].toLowerCase().contains(query.toLowerCase()) ||
+          hotel["price"].toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final hotel = results[index];
+        return ListTile(
+          title: Text(hotel["name"]),
+          subtitle: Text("${hotel["location"]} - ${hotel["price"]}"),
+          onTap: () {
+            // Handle hotel detail navigation
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // Show suggestions as user types
+    final suggestions = hotels.where((hotel) {
+      return hotel["name"].toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (context, index) {
+        final hotel = suggestions[index];
+        return ListTile(
+          title: Text(hotel["name"]),
+          subtitle: Text(hotel["location"]),
+        );
+      },
     );
   }
 }
