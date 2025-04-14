@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'HotelPage.dart';
 import 'NavigationPage.dart';
+import 'EmergenciesPage.dart';
+
 
 void main() => runApp(TravelPioneerApp());
 
@@ -64,7 +66,7 @@ class HomePage extends StatelessWidget {
               {'icon': Icons.hotel, 'title': "Hotel", 'route': HotelPage()},
               {'icon': Icons.backpack, 'title': "Accessories"},
               {'icon': Icons.navigation, 'title': "Navigation", 'route': NavigationPage()},
-              {'icon': Icons.local_hospital, 'title': "Emergencies"},
+              {'icon': Icons.local_hospital, 'title': "Emergencies", 'route': EmergenciesPage()},
             ].map((item) {
               return ListTile(
                 leading: Icon(item['icon'] as IconData, color: Colors.blue),
