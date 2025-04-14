@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'HotelPage.dart';
 import 'NavigationPage.dart';
 import 'EmergenciesPage.dart';
+import 'TicketsPage.dart';
+
+
 
 
 void main() => runApp(TravelPioneerApp());
@@ -62,7 +65,7 @@ class HomePage extends StatelessWidget {
 
             ...[
               {'icon': Icons.card_travel, 'title': "Packages"},
-              {'icon': Icons.confirmation_number, 'title': "Tickets"},
+              {'icon': Icons.confirmation_number, 'title': "Tickets", 'route': TicketPage()},
               {'icon': Icons.hotel, 'title': "Hotel", 'route': HotelPage()},
               {'icon': Icons.backpack, 'title': "Accessories"},
               {'icon': Icons.navigation, 'title': "Navigation", 'route': NavigationPage()},
