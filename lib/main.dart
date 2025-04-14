@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'NavigationPage.dart';
 
 void main() => runApp(TravelPioneerApp());
 
@@ -20,9 +21,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Travel Pioneer",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.lightBlue,
         centerTitle: true,
       ),
       drawer: Drawer(
@@ -37,7 +38,7 @@ class HomePage extends StatelessWidget {
               ),
               child: Text(
                 "Welcome to Travel Pioneer",
-                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),
               ),
             ),
             ...[
@@ -45,7 +46,7 @@ class HomePage extends StatelessWidget {
               {'icon': Icons.confirmation_number, 'title': "Tickets"},
               {'icon': Icons.hotel, 'title': "Hotel", 'route': HotelPage()},
               {'icon': Icons.backpack, 'title': "Accessories"},
-              {'icon': Icons.navigation, 'title': "Navigation"},
+              {'icon': Icons.navigation, 'title': "Navigation", 'route': NavigationPage()},
               {'icon': Icons.local_hospital, 'title': "Emergencies"},
             ].map((item) {
               return ListTile(
@@ -68,6 +69,7 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
 
 class HotelPage extends StatelessWidget {
   final List<Map<String, dynamic>> hotels = [
