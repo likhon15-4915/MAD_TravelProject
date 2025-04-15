@@ -3,6 +3,7 @@ import 'HotelPage.dart';
 import 'NavigationPage.dart';
 import 'EmergenciesPage.dart';
 import 'TicketsPage.dart';
+import 'AccessoriesPage.dart';
 
 
 
@@ -67,7 +68,7 @@ class HomePage extends StatelessWidget {
               {'icon': Icons.card_travel, 'title': "Packages"},
               {'icon': Icons.confirmation_number, 'title': "Tickets", 'route': TicketsPage()},
               {'icon': Icons.hotel, 'title': "Hotel", 'route': HotelPage()},
-              {'icon': Icons.backpack, 'title': "Accessories"},
+              {'icon': Icons.backpack, 'title': "Accessories", 'route': AccessoriesPage()},
               {'icon': Icons.navigation, 'title': "Navigation", 'route': NavigationPage()},
               {'icon': Icons.local_hospital, 'title': "Emergencies", 'route': EmergenciesPage()},
             ].map((item) {
