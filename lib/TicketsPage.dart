@@ -110,7 +110,8 @@ class TransportTab extends StatelessWidget {
                   },
                 );
               },
-              child: Text("Book"),
+                child: Text("Book", style: TextStyle(color: Colors.black)),
+
             ),
           ),
         );

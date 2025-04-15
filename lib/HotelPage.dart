@@ -29,7 +29,7 @@ class HotelPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Hotel Booking"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.lightBlue,
       ),
       body: ListView.builder(
         itemCount: hotels.length,
@@ -47,7 +47,7 @@ class HotelPage extends StatelessWidget {
               subtitle: Text("${hotel["location"]} - ${hotel["price"]}"),
               trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: Colors.lightBlue,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
                 onPressed: () {
@@ -55,7 +55,7 @@ class HotelPage extends StatelessWidget {
                     SnackBar(content: Text("Booking is processing ${hotel["name"]}")),
                   );
                 },
-                child: Text("Book Now"),
+                child: Text("Book", style: TextStyle(color: Colors.white)),
               ),
             ),
           );

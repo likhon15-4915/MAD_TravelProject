@@ -84,7 +84,7 @@ class EmergenciesPage extends StatelessWidget {
                 trailing: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: contact['color'],
-                    foregroundColor: Colors.white, // 👈 This sets the text and icon to white
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () => _callNumber(contact['number']),
